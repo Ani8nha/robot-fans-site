@@ -1,4 +1,5 @@
-    const products = [
+// LISTA DE PRODUTOS
+        const products = [
             { id: 1, name: "Kit Robot's Fans", price: 65.00, category: "Kits", image: "https://images.unsplash.com/photo-1593014603310-23a5c21f1d16?auto=format&fit=crop&q=80&w=600", description: "Kit completo com desconto: Camiseta, Bottom, Adesivo e Lápis.", tag: "Mais Vendido" },
             { id: 2, name: "Camiseta Oficial 9484", price: 50.00, category: "Vestuário", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=600", description: "Malha confortável com design da temporada.", tag: "Novo" },
             { id: 3, name: "Boné District", price: 30.00, category: "Vestuário", image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&q=80&w=600", description: "Bordado de alta qualidade. Identidade visual forte." },
@@ -20,7 +21,9 @@
             let cartCount = 0;
 
             function renderProducts(category) {
+                if(!productGrid) return;
                 productGrid.innerHTML = '';
+                
                 const filtered = category === 'Todos' ? products : products.filter(p => p.category === category);
 
                 filtered.forEach(product => {
@@ -59,12 +62,14 @@
                 });
             });
 
-            // Carrinho Global
+            // Carrinho
             window.addToCart = function() {
                 cartCount++;
-                cartCountEl.innerText = `(${cartCount})`;
-                toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 3000);
+                if(cartCountEl) cartCountEl.innerText = `(${cartCount})`;
+                if(toast) {
+                    toast.classList.add('show');
+                    setTimeout(() => toast.classList.remove('show'), 3000);
+                }
             };
 
             // Mobile Menu
@@ -74,7 +79,7 @@
             const mobileLinks = document.querySelectorAll('.mobile-link');
 
             function toggleMenu() {
-                mobileMenu.classList.toggle('open');
+                if(mobileMenu) mobileMenu.classList.toggle('open');
             }
 
             if(menuBtn) menuBtn.addEventListener('click', toggleMenu);

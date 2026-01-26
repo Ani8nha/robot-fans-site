@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loja Robot's Fans - Team 9484</title>
-    <link rel="stylesheet" href="styles/all.css">
-    <link rel="stylesheet" href="script.js">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 
     <!-- Toast -->
     <div id="toast" class="toast">
-        <!-- Ícone Check SVG -->
-        <svg class="icon-svg" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="3">
-            <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-        <span>Produto adicionado!</span>
+        <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>Adicionado ao carrinho!</span>
     </div>
 
     <!-- Header -->
@@ -22,12 +19,9 @@
             
             <!-- Logo -->
             <div class="flex items-center gap-2">
-                <!-- Tenta imagem, falha para div -->
-                <img src="logo.png" alt="Logo" style="height: 40px; border-radius: 4px;" 
+                <img src="images/logo.png" alt="Logo">
                      onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='flex'">
-                
                 <div id="fallback-logo" class="logo-box hidden">9484</div>
-
                 <div class="flex flex-col">
                     <h1 style="font-size: 1.125rem; font-weight: 800; line-height: 1; text-transform: uppercase;">Robot's Fans</h1>
                     <p style="font-size: 0.65rem; color: var(--primary); text-transform: uppercase; letter-spacing: 0.1em;">Loja Oficial 9484</p>
@@ -44,20 +38,15 @@
             <!-- Actions -->
             <div class="flex items-center gap-4">
                 <button class="btn-icon md-flex hidden">
-                    <!-- Search SVG -->
-                    <svg class="icon-svg" viewBox="0 0 24 24" width="20" height="20"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </button>
-                
                 <button onclick="addToCart()" class="btn btn-primary">
-                    <!-- Bag SVG -->
-                    <svg class="icon-svg" style="stroke: var(--secondary);" viewBox="0 0 24 24" width="16" height="16"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    <svg class="icon-svg" style="stroke: var(--secondary);" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                     <span class="md-flex hidden">Carrinho</span>
                     <span id="cart-count">(0)</span>
                 </button>
-
                 <button id="menu-btn" class="btn-icon md-hidden">
-                    <!-- Menu SVG -->
-                    <svg class="icon-svg" viewBox="0 0 24 24" width="24" height="24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    <svg class="icon-svg" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 </button>
             </div>
         </div>
@@ -65,8 +54,7 @@
         <!-- Menu Mobile -->
         <div id="mobile-menu" class="mobile-menu">
             <button id="close-menu" style="position: absolute; top: 1.5rem; right: 1.5rem; color: white;">
-                <!-- X SVG -->
-                <svg class="icon-svg" viewBox="0 0 24 24" width="32" height="32"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                <svg class="icon-svg" style="width: 32px; height: 32px;" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
             <a href="#" class="mobile-link">Início</a>
             <a href="#produtos" class="mobile-link">Produtos</a>
@@ -90,18 +78,9 @@
                     A combinação perfeita para quem torce de verdade. Leve a experiência completa com desconto especial.
                 </p>
                 <ul class="check-list">
-                    <li>
-                        <svg class="icon-svg text-primary" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> 
-                        Camiseta Oficial
-                    </li>
-                    <li>
-                        <svg class="icon-svg text-primary" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> 
-                        Bottom Exclusivo
-                    </li>
-                    <li>
-                        <svg class="icon-svg text-primary" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> 
-                        Adesivo & Lápis Semente
-                    </li>
+                    <li><svg class="icon-svg text-primary" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Camiseta Oficial</li>
+                    <li><svg class="icon-svg text-primary" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Bottom Exclusivo</li>
+                    <li><svg class="icon-svg text-primary" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Adesivo & Lápis</li>
                 </ul>
                 <div class="flex items-center gap-4" style="margin-top: 1.5rem;">
                     <div>
@@ -117,7 +96,7 @@
         </div>
     </section>
 
-    <!-- Loja Principal -->
+    <!-- Produtos -->
     <section id="produtos" class="container" style="padding-bottom: 3rem;">
         <div class="filters" id="filters">
             <button class="filter-btn active" data-category="Todos">Todos</button>
@@ -128,7 +107,7 @@
         </div>
 
         <div class="product-grid" id="product-grid">
-            <!-- JS preenche aqui -->
+            <!-- JS vai inserir os produtos aqui -->
         </div>
     </section>
 
@@ -140,8 +119,7 @@
                 <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Compromisso Verde</span>
             </div>
             <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 3rem;">Sustentabilidade em cada detalhe</h2>
-
-            <div class="mission-grid">
+            <div class="mission-grid md-grid-cols-3">
                 <div class="mission-card">
                     <h4 style="color: var(--primary); font-weight: 700; margin-bottom: 0.5rem;">Produção Consciente</h4>
                     <p style="font-size: 0.875rem; color: var(--text-muted);">Priorizamos algodão orgânico, aço inoxidável e PLA biodegradável.</p>
@@ -180,5 +158,6 @@
         </div>
     </footer>
 
+    
 </body>
 </html>
