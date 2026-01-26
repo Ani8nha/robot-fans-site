@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot's District</title>
+    <link rel="stylesheet" href="styles/all.css">
+</head>
+<body>
+    <header>
+         <!-- esquerdo -->
+
+        <div class="layout-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="sidebar-title">Menu</span>
+            <!-- Adicionando type="button" para evitar comportamentos padrão de form -->
+            <button class="toggle-btn" type="button" id="toggle-btn">
+                <i data-lucide="chevron-left" id="toggle-icon"></i>
+            </button>
+        </div>
+
+        
+        <nav>
+            <button class="nav-btn active" type="button" onclick="selectItem(this)">
+                <div class="nav-icon"><i data-lucide="layout-dashboard"></i></div>
+                <span class="nav-text">Visão Geral</span>
+                <span class="active-indicator"></span>
+                <span class="tooltip">Visão Geral</span>
+            </button>
+
+            <button class="nav-btn" type="button" onclick="selectItem(this)">
+                <div class="nav-icon"><i data-lucide="file-text"></i></div>
+                <span class="nav-text">Detalhes</span>
+                <span class="active-indicator"></span>
+                <span class="tooltip">Detalhes</span>
+            </button>
+
+            <button class="nav-btn" type="button" onclick="selectItem(this)">
+                <div class="nav-icon"><i data-lucide="settings"></i></div>
+                <span class="nav-text">Configurações</span>
+                <span class="active-indicator"></span>
+                <span class="tooltip">Configurações</span>
+            </button>
+        </nav>
+    </aside>
+
+    <div style="flex:1; padding: 40px; color: #9ca3af; display: flex; align-items: center; justify-content: center;">
+        Conteúdo da Página
+    </div>
+</div>
+
+    </header>
+    
+</body>
+</html>
