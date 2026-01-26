@@ -1,475 +1,184 @@
 <!DOCTYPE html>
-<html lang="pt-br" class="scroll-smooth">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loja Robot's Fans - Team 9484</title>
-    
-    <!-- Ícones e Fontes -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/all.css">
+    <link rel="stylesheet" href="script.js">
 
-    <style>
-        /* --- CSS EMBUTIDO --- */
-        body {
-            background-color: #09090b; /* Zinc 950 */
-            color: #ffffff;
-        }
-
-        ::selection {
-            background-color: #ffb800; /* Amarelo */
-            color: #000000;
-        }
-
-        /* Scrollbar Invisível */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* Botão Filtro Ativo */
-        .filter-btn.active {
-            background-color: #ffb800;
-            color: #30004a;
-            border-color: #ffb800;
-        }
-    </style>
-</head>
-<body class="bg-zinc-950 text-white font-sans antialiased">
-
-    <!-- Toast de Notificação -->
-    <div id="toast" class="fixed top-4 right-4 bg-[#ffb800] text-[#30004a] px-6 py-3 rounded shadow-xl z-[60] font-bold flex items-center gap-2 border border-[#30004a] transform transition-all duration-300 translate-y-[-150%]">
-        <i data-lucide="check" class="w-4 h-4"></i>
+    <!-- Toast -->
+    <div id="toast" class="toast">
+        <!-- Ícone Check SVG -->
+        <svg class="icon-svg" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="3">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
         <span>Produto adicionado!</span>
     </div>
 
     <!-- Header -->
-    <header class="sticky top-0 z-50 bg-[#30004a]/95 backdrop-blur-md border-b border-white/10 shadow-lg">
-        <div class="container mx-auto px-4 h-20 flex items-center justify-between">
+    <header>
+        <div class="container flex justify-between items-center" style="width: 100%;">
             
             <!-- Logo -->
-            <div class="flex items-center gap-3">
-                <!-- Tenta carregar logo.png, se não der, mostra o quadrado -->
-                <img 
-                    src="images/logo.png" 
-                    alt="Logo" 
-                    class="h-10 w-auto object-contain rounded-sm"
-                    onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='flex'"
-                >
-                <div id="fallback-logo" class="w-10 h-10 bg-[#ffb800] rounded hidden items-center justify-center font-bold text-[#30004a] text-xs shadow-lg">
-                    9484
-                </div>
+            <div class="flex items-center gap-2">
+                <!-- Tenta imagem, falha para div -->
+                <img src="logo.png" alt="Logo" style="height: 40px; border-radius: 4px;" 
+                     onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='flex'">
+                
+                <div id="fallback-logo" class="logo-box hidden">9484</div>
 
-                <div>
-                    <h1 class="text-lg font-bold uppercase tracking-tight leading-none text-white">Robot's Fans</h1>
-                    <p class="text-[10px] text-[#ffb800] uppercase tracking-widest">Loja Oficial Team 9484</p>
+                <div class="flex flex-col">
+                    <h1 style="font-size: 1.125rem; font-weight: 800; line-height: 1; text-transform: uppercase;">Robot's Fans</h1>
+                    <p style="font-size: 0.65rem; color: var(--primary); text-transform: uppercase; letter-spacing: 0.1em;">Loja Oficial 9484</p>
                 </div>
             </div>
 
-            <!-- Menu Desktop -->
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#" class="text-sm font-medium text-white hover:text-[#ffb800] transition-colors">Início</a>
-                <a href="#produtos" class="text-sm font-medium text-white hover:text-[#ffb800] transition-colors">Produtos</a>
-                <a href="#missao" class="text-sm font-medium text-white hover:text-[#ffb800] transition-colors">Missão</a>
-            </div>
+            <!-- Nav Desktop -->
+            <nav class="md-flex hidden items-center gap-8">
+                <a href="#" class="nav-link">Início</a>
+                <a href="#produtos" class="nav-link">Produtos</a>
+                <a href="#missao" class="nav-link">Missão</a>
+            </nav>
 
-            <!-- Ações -->
+            <!-- Actions -->
             <div class="flex items-center gap-4">
-                <button class="p-2 hover:bg-[#ffb800] hover:text-[#30004a] rounded-full transition-colors hidden sm:block text-white">
-                    <i data-lucide="search" class="w-5 h-5"></i>
+                <button class="btn-icon md-flex hidden">
+                    <!-- Search SVG -->
+                    <svg class="icon-svg" viewBox="0 0 24 24" width="20" height="20"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </button>
-                <button onclick="addToCart()" class="flex items-center gap-2 bg-[#ffb800] text-[#30004a] px-4 py-2 rounded-full font-bold text-xs uppercase tracking-wide hover:bg-white transition-colors shadow-md">
-                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-                    <span class="hidden sm:inline">Carrinho</span>
+                
+                <button onclick="addToCart()" class="btn btn-primary">
+                    <!-- Bag SVG -->
+                    <svg class="icon-svg" style="stroke: var(--secondary);" viewBox="0 0 24 24" width="16" height="16"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    <span class="md-flex hidden">Carrinho</span>
                     <span id="cart-count">(0)</span>
                 </button>
-                <button id="menu-btn" class="md:hidden p-2 text-white">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
+
+                <button id="menu-btn" class="btn-icon md-hidden">
+                    <!-- Menu SVG -->
+                    <svg class="icon-svg" viewBox="0 0 24 24" width="24" height="24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 </button>
             </div>
         </div>
 
         <!-- Menu Mobile -->
-        <div id="mobile-menu" class="fixed inset-0 bg-[#30004a] z-40 flex flex-col items-center justify-center gap-8 transition-transform duration-300 translate-x-full md:hidden">
-            <button id="close-menu" class="absolute top-6 right-6 text-white hover:text-[#ffb800]">
-                <i data-lucide="x" class="w-8 h-8"></i>
+        <div id="mobile-menu" class="mobile-menu">
+            <button id="close-menu" style="position: absolute; top: 1.5rem; right: 1.5rem; color: white;">
+                <!-- X SVG -->
+                <svg class="icon-svg" viewBox="0 0 24 24" width="32" height="32"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
-            <a href="#" class="mobile-link text-2xl font-bold text-white hover:text-[#ffb800]">Início</a>
-            <a href="#produtos" class="mobile-link text-2xl font-bold text-white hover:text-[#ffb800]">Produtos</a>
-            <a href="#missao" class="mobile-link text-2xl font-bold text-white hover:text-[#ffb800]">Missão</a>
+            <a href="#" class="mobile-link">Início</a>
+            <a href="#produtos" class="mobile-link">Produtos</a>
+            <a href="#missao" class="mobile-link">Missão</a>
         </div>
     </header>
 
-    <!-- Hero Banner -->
-    <div class="bg-gradient-to-b from-[#30004a] to-zinc-950 border-b border-white/5 py-16 px-4 text-center">
-        <!-- Logo Grande Central -->
-        <img src="logo.png" class="h-32 w-auto mx-auto mb-8 object-contain drop-shadow-2xl" onerror="this.style.display='none'">
-        
-        <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-4 text-white">
-            Vista a camisa da <br/> <span class="text-[#ffb800]">inovação</span>
-        </h2>
-        <p class="max-w-2xl mx-auto text-zinc-300 leading-relaxed">
-            Cada produto adquirido apoia diretamente a <strong>Robot's District #9484</strong>. 
-            Todo o lucro é revertido para materiais de construção, inscrições em campeonatos e projetos sociais.
-        </p>
+    <!-- Hero -->
+    <div class="hero">
+        <h2>Vista a camisa da <br><span class="text-highlight">inovação</span></h2>
+        <p>Cada produto adquirido apoia diretamente a <strong>Robot's District #9484</strong>. Todo o lucro é revertido para materiais e competições.</p>
     </div>
 
-    <!-- Destaque Estratégico (Kit) -->
-    <section class="container mx-auto px-4 py-12">
-        <div class="bg-gradient-to-r from-[#30004a] to-zinc-900 border border-[#ffb800]/30 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden shadow-2xl">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-[#ffb800]/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
-            
-            <div class="flex-1 space-y-6 relative z-10">
-                <div class="inline-block bg-[#ffb800] text-[#30004a] px-3 py-1 rounded font-bold text-xs uppercase tracking-widest">
-                    Oferta do Distrito
-                </div>
-                <h3 class="text-4xl font-bold text-white">Kit Fan Essencial</h3>
-                <p class="text-zinc-300">
+    <!-- Destaque -->
+    <section class="container">
+        <div class="promo-card">
+            <div style="flex: 1;">
+                <span class="badge">Oferta do Distrito</span>
+                <h3 style="font-size: 2rem; font-weight: 700; margin: 1rem 0;">Kit Fan Essencial</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
                     A combinação perfeita para quem torce de verdade. Leve a experiência completa com desconto especial.
                 </p>
-                <ul class="space-y-2 text-sm text-zinc-400">
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#ffb800]"></i> Camiseta Oficial</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#ffb800]"></i> Bottom Exclusivo</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#ffb800]"></i> Adesivo</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#ffb800]"></i> Lápis Semente</li>
+                <ul class="check-list">
+                    <li>
+                        <svg class="icon-svg text-primary" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> 
+                        Camiseta Oficial
+                    </li>
+                    <li>
+                        <svg class="icon-svg text-primary" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> 
+                        Bottom Exclusivo
+                    </li>
+                    <li>
+                        <svg class="icon-svg text-primary" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> 
+                        Adesivo & Lápis Semente
+                    </li>
                 </ul>
-                <div class="flex items-center gap-4 pt-4">
-                    <div class="text-left">
-                        <span class="block text-zinc-500 line-through text-sm">De R$ 75,00</span>
-                        <span class="block text-3xl font-bold text-white">R$ 65,00</span>
+                <div class="flex items-center gap-4" style="margin-top: 1.5rem;">
+                    <div>
+                        <span style="display: block; font-size: 0.875rem; text-decoration: line-through; color: var(--text-muted);">De R$ 75,00</span>
+                        <span style="display: block; font-size: 1.5rem; font-weight: 700;">R$ 65,00</span>
                     </div>
-                    <button onclick="addToCart()" class="bg-[#ffb800] hover:bg-white text-[#30004a] px-8 py-3 rounded-lg font-bold uppercase tracking-wide transition-all shadow-[0_0_20px_rgba(255,184,0,0.3)]">
-                        Comprar Kit
-                    </button>
+                    <button onclick="addToCart()" class="btn btn-primary">Comprar Kit</button>
                 </div>
             </div>
-            <div class="flex-1 w-full max-w-md relative z-10">
-                <img 
-                    src="https://images.unsplash.com/photo-1593014603310-23a5c21f1d16?auto=format&fit=crop&q=80&w=800" 
-                    alt="Kit Fan" 
-                    class="rounded-xl shadow-2xl border border-white/10 rotate-2 hover:rotate-0 transition-transform duration-500"
-                >
+            <div style="flex: 1; display: flex; justify-content: center;">
+                <img src="https://images.unsplash.com/photo-1593014603310-23a5c21f1d16?auto=format&fit=crop&q=80&w=600" alt="Kit" class="promo-img">
             </div>
         </div>
     </section>
 
     <!-- Loja Principal -->
-    <section id="produtos" class="container mx-auto px-4 py-12">
-        <!-- Filtros -->
-        <div class="flex flex-wrap gap-2 mb-12 justify-center" id="filters">
-            <button class="filter-btn active px-5 py-2 rounded-full text-sm font-bold border border-[#ffb800] bg-[#ffb800] text-[#30004a] transition-all" data-category="Todos">Todos</button>
-            <button class="filter-btn px-5 py-2 rounded-full text-sm font-bold border border-zinc-800 text-zinc-500 hover:border-[#ffb800] hover:text-[#ffb800] bg-transparent transition-all" data-category="Vestuário">Vestuário</button>
-            <button class="filter-btn px-5 py-2 rounded-full text-sm font-bold border border-zinc-800 text-zinc-500 hover:border-[#ffb800] hover:text-[#ffb800] bg-transparent transition-all" data-category="Sustentáveis">Sustentáveis</button>
-            <button class="filter-btn px-5 py-2 rounded-full text-sm font-bold border border-zinc-800 text-zinc-500 hover:border-[#ffb800] hover:text-[#ffb800] bg-transparent transition-all" data-category="Colecionáveis">Colecionáveis</button>
-            <button class="filter-btn px-5 py-2 rounded-full text-sm font-bold border border-zinc-800 text-zinc-500 hover:border-[#ffb800] hover:text-[#ffb800] bg-transparent transition-all" data-category="Papelaria">Papelaria</button>
+    <section id="produtos" class="container" style="padding-bottom: 3rem;">
+        <div class="filters" id="filters">
+            <button class="filter-btn active" data-category="Todos">Todos</button>
+            <button class="filter-btn" data-category="Vestuário">Vestuário</button>
+            <button class="filter-btn" data-category="Sustentáveis">Sustentáveis</button>
+            <button class="filter-btn" data-category="Colecionáveis">Colecionáveis</button>
+            <button class="filter-btn" data-category="Papelaria">Papelaria</button>
         </div>
 
-        <!-- Grid de Produtos -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="product-grid">
-            <!-- Renderizado via JS abaixo -->
+        <div class="product-grid" id="product-grid">
+            <!-- JS preenche aqui -->
         </div>
     </section>
 
     <!-- Sustentabilidade -->
-    <section id="missao" class="bg-[#30004a] border-y border-[#ffb800]/20 py-20 relative overflow-hidden">
-        <div class="container mx-auto px-4 relative z-10">
-            <div class="max-w-4xl mx-auto text-center">
-                <div class="inline-flex items-center gap-2 text-[#ffb800] mb-6 border border-[#ffb800]/30 bg-[#ffb800]/10 px-4 py-2 rounded-full">
-                    <i data-lucide="leaf" class="w-4 h-4"></i>
-                    <span class="text-xs font-bold uppercase tracking-widest">Compromisso Verde</span>
+    <section id="missao" class="mission-section">
+        <div class="container" style="text-align: center;">
+            <div style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--primary); border: 1px solid rgba(255,184,0,0.3); padding: 0.5rem 1rem; border-radius: 99px; margin-bottom: 1.5rem;">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>
+                <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Compromisso Verde</span>
+            </div>
+            <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 3rem;">Sustentabilidade em cada detalhe</h2>
+
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <h4 style="color: var(--primary); font-weight: 700; margin-bottom: 0.5rem;">Produção Consciente</h4>
+                    <p style="font-size: 0.875rem; color: var(--text-muted);">Priorizamos algodão orgânico, aço inoxidável e PLA biodegradável.</p>
                 </div>
-                <h2 class="text-3xl md:text-5xl font-bold mb-8 text-white">Sustentabilidade em cada detalhe</h2>
-                
-                <div class="grid md:grid-cols-3 gap-8 text-left mt-12">
-                    <div class="bg-black/30 p-6 rounded-xl border border-[#ffb800]/10 hover:border-[#ffb800]/30 transition-colors">
-                        <h4 class="font-bold text-[#ffb800] mb-3 text-lg">Produção Consciente</h4>
-                        <p class="text-zinc-300 text-sm leading-relaxed">
-                            Priorizamos materiais como algodão orgânico, aço inoxidável e filamentos PLA biodegradáveis.
-                        </p>
-                    </div>
-                    <div class="bg-black/30 p-6 rounded-xl border border-[#ffb800]/10 hover:border-[#ffb800]/30 transition-colors">
-                        <h4 class="font-bold text-[#ffb800] mb-3 text-lg">Zero Plástico</h4>
-                        <p class="text-zinc-300 text-sm leading-relaxed">
-                            Utilizamos caixas recicladas e pouch bags de papel. Até nossa fita adesiva é de papel kraft.
-                        </p>
-                    </div>
-                    <div class="bg-black/30 p-6 rounded-xl border border-[#ffb800]/10 hover:border-[#ffb800]/30 transition-colors">
-                        <h4 class="font-bold text-[#ffb800] mb-3 text-lg">Papel Semente</h4>
-                        <p class="text-zinc-300 text-sm leading-relaxed">
-                            Seu pedido acompanha um cartão de agradecimento feito de papel semente. Leia, molhe e plante!
-                        </p>
-                    </div>
+                <div class="mission-card">
+                    <h4 style="color: var(--primary); font-weight: 700; margin-bottom: 0.5rem;">Zero Plástico</h4>
+                    <p style="font-size: 0.875rem; color: var(--text-muted);">Caixas recicladas, pouch bags de papel e fita de papel kraft.</p>
+                </div>
+                <div class="mission-card">
+                    <h4 style="color: var(--primary); font-weight: 700; margin-bottom: 0.5rem;">Papel Semente</h4>
+                    <p style="font-size: 0.875rem; color: var(--text-muted);">Cartão de agradecimento plantável. Leia, molhe e plante!</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-zinc-950 py-12 border-t border-white/10 text-center md:text-left">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-                <div>
-                    <h4 class="font-bold text-xl mb-2 text-white">Robot's Fans</h4>
-                    <p class="text-zinc-500 text-sm">Loja oficial da equipe FRC 9484</p>
-                </div>
-                
-                <div class="flex gap-6">
-                    <a href="#" class="text-zinc-400 hover:text-[#ffb800] text-sm transition-colors">Política de Troca</a>
-                    <a href="#" class="text-zinc-400 hover:text-[#ffb800] text-sm transition-colors">Envio e Prazos</a>
-                    <a href="#" class="text-zinc-400 hover:text-[#ffb800] text-sm transition-colors">Contato</a>
-                </div>
-
-                <div class="flex gap-4">
-                    <div class="w-8 h-8 bg-zinc-800 rounded flex items-center justify-center text-zinc-500 text-[10px] font-bold hover:bg-[#ffb800] hover:text-[#30004a] transition-colors cursor-default">PIX</div>
-                    <div class="w-8 h-8 bg-zinc-800 rounded flex items-center justify-center text-zinc-500 text-[10px] font-bold hover:bg-[#ffb800] hover:text-[#30004a] transition-colors cursor-default">CARD</div>
-                </div>
+    <footer>
+        <div class="container footer-content">
+            <div>
+                <h4 style="color: white; font-weight: 700; font-size: 1.25rem;">Robot's Fans</h4>
+                <p>Loja oficial da equipe FRC 9484</p>
             </div>
-            <div class="mt-12 pt-8 border-t border-zinc-900 text-center text-zinc-600 text-xs">
-                © 2026 Robot's District. Todos os direitos reservados.
+            <div class="flex gap-4">
+                <a href="#">Política de Troca</a>
+                <a href="#">Envio</a>
+                <a href="#">Contato</a>
             </div>
+            <div class="flex gap-2">
+                <div class="payment-icon">PIX</div>
+                <div class="payment-icon">CARD</div>
+            </div>
+        </div>
+        <div class="container" style="text-align: center; margin-top: 2rem; font-size: 0.75rem;">
+            © 2026 Robot's District. Todos os direitos reservados.
         </div>
     </footer>
 
-    <!-- SCRIPT EMBUTIDO (PARA FUNCIONAR NA PRÉ-VISUALIZAÇÃO) -->
-    <script>
-        // Dados dos Produtos
-        const products = [
-            {
-                id: 2,
-                name: "Camiseta Oficial 9484",
-                price: 50.00,
-                category: "Vestuário",
-                image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=600",
-                description: "Malha confortável com design da temporada.",
-                tag: "Novo"
-            },
-            {
-                id: 3,
-                name: "Boné District",
-                price: 30.00,
-                category: "Vestuário",
-                image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&q=80&w=600",
-                description: "Bordado de alta qualidade.",
-            },
-            {
-                id: 4,
-                name: "Bandana Multiuso",
-                price: 20.00,
-                category: "Vestuário",
-                image: "https://images.unsplash.com/photo-1626425777709-663806a6c4b2?auto=format&fit=crop&q=80&w=600",
-                description: "Ideal para eventos e treinos.",
-            },
-            {
-                id: 5,
-                name: "Ecobag Robot's",
-                price: 30.00,
-                category: "Sustentáveis",
-                image: "https://images.unsplash.com/photo-1597484662317-c93138801d0c?auto=format&fit=crop&q=80&w=600",
-                description: "Algodão cru. Substitua sacolas plásticas.",
-            },
-            {
-                id: 6,
-                name: "Garrafinha Personalizada",
-                price: 35.00,
-                category: "Sustentáveis",
-                image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=600",
-                description: "Material durável para o dia a dia.",
-            },
-            {
-                id: 7,
-                name: "Lápis Semente",
-                price: 10.00,
-                category: "Sustentáveis",
-                image: "https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&q=80&w=600",
-                description: "Use até o fim e plante para nascer uma árvore.",
-            },
-            {
-                id: 8,
-                name: "Chaveiro 3D",
-                price: 15.00,
-                category: "Colecionáveis",
-                image: "https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?auto=format&fit=crop&q=80&w=600",
-                description: "Impresso em PLA biodegradável.",
-            },
-            {
-                id: 9,
-                name: "Bottom (Broche)",
-                price: 10.00,
-                category: "Colecionáveis",
-                image: "https://images.unsplash.com/photo-1633535268612-92268297b4a2?auto=format&fit=crop&q=80&w=600",
-                description: "Para personalizar sua mochila.",
-            },
-            {
-                id: 10,
-                name: "Pack de Adesivos",
-                price: 5.00,
-                category: "Colecionáveis",
-                image: "https://images.unsplash.com/photo-1572375992501-4b0892d50c69?auto=format&fit=crop&q=80&w=600",
-                description: "Vinil resistente e estiloso.",
-            },
-            {
-                id: 11,
-                name: "Mousepad Gamer",
-                price: 30.00,
-                category: "Papelaria",
-                image: "https://images.unsplash.com/photo-1616422285623-13ff0162193c?auto=format&fit=crop&q=80&w=600",
-                description: "Superfície otimizada para precisão.",
-            },
-            {
-                id: 12,
-                name: "Caneta Personalizada",
-                price: 10.00,
-                category: "Papelaria",
-                image: "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&q=80&w=600",
-                description: "Escrita suave com a marca da equipe.",
-            }
-        ];
-
-        // Inicialização
-        document.addEventListener("DOMContentLoaded", () => {
-            lucide.createIcons();
-            const productGrid = document.getElementById('product-grid');
-            const cartCountEl = document.getElementById('cart-count');
-            const toast = document.getElementById('toast');
-            let cartCount = 0;
-
-            function renderProducts(category) {
-                if(!productGrid) return;
-                productGrid.innerHTML = '';
-                
-                const filtered = category === 'Todos' ? products : products.filter(p => p.category === category);
-
-                filtered.forEach(product => {
-                    const card = document.createElement('div');
-                    card.className = 'group flex flex-col';
-                    card.innerHTML = `
-                        <div class="relative aspect-[4/5] bg-zinc-900 rounded-lg overflow-hidden mb-4 border border-zinc-800 group-hover:border-[#ffb800]/50 transition-colors">
-                            ${product.tag ? `<span class="absolute top-3 left-3 bg-[#ffb800] text-[#30004a] text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider z-10">${product.tag}</span>` : ''}
-                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                 onerror="this.src='https://placehold.co/400x500/18181b/ffb800?text=Sem+Imagem&font=oswald'">
-                            <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white text-[#30004a] p-3 rounded-full shadow-lg opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-[#ffb800]">
-                                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                        <div class="flex-1 flex flex-col">
-                            <div class="text-xs text-zinc-500 uppercase tracking-widest mb-1">${product.category}</div>
-                            <h3 class="font-bold text-lg leading-tight mb-2 group-hover:text-[#ffb800] transition-colors">${product.name}</h3>
-                            <p class="text-zinc-400 text-xs line-clamp-2 mb-3 flex-1">${product.description}</p>
-                            <div class="flex items-center gap-2 mt-auto">
-                                <span class="text-white font-mono font-bold text-lg">R$ ${product.price.toFixed(2)}</span>
-                            </div>
-                        </div>
-                    `;
-                    productGrid.appendChild(card);
-                });
-                
-                lucide.createIcons();
-                
-                document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        addToCart();
-                    });
-                });
-            }
-
-            // Filtros
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.filter-btn').forEach(b => {
-                        b.classList.remove('active', 'bg-[#ffb800]', 'text-[#30004a]', 'border-[#ffb800]');
-                        b.classList.add('bg-transparent', 'text-zinc-500', 'border-zinc-800');
-                    });
-                    btn.classList.add('active', 'bg-[#ffb800]', 'text-[#30004a]', 'border-[#ffb800]');
-                    btn.classList.remove('bg-transparent', 'text-zinc-500', 'border-zinc-800');
-                    renderProducts(btn.dataset.category);
-                });
-            });
-
-            // Carrinho
-            window.addToCart = function() {
-                cartCount++;
-                if(cartCountEl) cartCountEl.innerText = `(${cartCount})`;
-                if(toast) {
-                    toast.classList.remove('translate-y-[-150%]');
-                    setTimeout(() => toast.classList.add('translate-y-[-150%]'), 3000);
-                }
-            };
-
-            // Mobile Menu
-            const menuBtn = document.getElementById('menu-btn');
-            const closeMenu = document.getElementById('close-menu');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            function toggleMenu() {
-                if(mobileMenu) mobileMenu.classList.toggle('translate-x-full');
-            }
-            if(menuBtn) menuBtn.addEventListener('click', toggleMenu);
-            if(closeMenu) closeMenu.addEventListener('click', toggleMenu);
-            document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', toggleMenu));
-
-            // Iniciar
-            renderProducts('Todos');
-        });
-    </script>
-=======
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robot's District</title>
-    <link rel="stylesheet" href="styles/all.css">
-</head>
-<body>
-    <header>
-         <!-- esquerdo -->
-
-        <div class="layout-wrapper">
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <span class="sidebar-title">Menu</span>
-            <!-- Adicionando type="button" para evitar comportamentos padrão de form -->
-            <button class="toggle-btn" type="button" id="toggle-btn">
-                <i data-lucide="chevron-left" id="toggle-icon"></i>
-            </button>
-        </div>
-
-        
-        <nav>
-            <button class="nav-btn active" type="button" onclick="selectItem(this)">
-                <div class="nav-icon"><i data-lucide="layout-dashboard"></i></div>
-                <span class="nav-text">Visão Geral</span>
-                <span class="active-indicator"></span>
-                <span class="tooltip">Visão Geral</span>
-            </button>
-
-            <button class="nav-btn" type="button" onclick="selectItem(this)">
-                <div class="nav-icon"><i data-lucide="file-text"></i></div>
-                <span class="nav-text">Detalhes</span>
-                <span class="active-indicator"></span>
-                <span class="tooltip">Detalhes</span>
-            </button>
-
-            <button class="nav-btn" type="button" onclick="selectItem(this)">
-                <div class="nav-icon"><i data-lucide="settings"></i></div>
-                <span class="nav-text">Configurações</span>
-                <span class="active-indicator"></span>
-                <span class="tooltip">Configurações</span>
-            </button>
-        </nav>
-    </aside>
-
-    <div style="flex:1; padding: 40px; color: #9ca3af; display: flex; align-items: center; justify-content: center;">
-        Conteúdo da Página
-    </div>
-</div>
-
-    </header>
-    
->>>>>>> e21c76f57fd2bdac649454574393ac446737c6a8
 </body>
 </html>
