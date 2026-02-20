@@ -1,17 +1,17 @@
 // LISTA DE PRODUTOS
         const products = [
-            { id: 1, name: "Kit Robot's Fans", price: 65.00, category: "Kits", image: "https://images.unsplash.com/photo-1593014603310-23a5c21f1d16?auto=format&fit=crop&q=80&w=600", description: "Kit completo com desconto: Camiseta, Bottom, Adesivo e Lápis.", tag: "Mais Vendido" },
-            { id: 2, name: "Camiseta Oficial 9484", price: 50.00, category: "Vestuário", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=600", description: "Malha confortável com design da temporada.", tag: "Novo" },
-            { id: 3, name: "Boné District", price: 30.00, category: "Vestuário", image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&q=80&w=600", description: "Bordado de alta qualidade. Identidade visual forte." },
-            { id: 4, name: "Bandana Multiuso", price: 20.00, category: "Vestuário", image: "https://images.unsplash.com/photo-1626425777709-663806a6c4b2?auto=format&fit=crop&q=80&w=600", description: "Ideal para eventos e treinos." },
-            { id: 5, name: "Ecobag Robot's", price: 30.00, category: "Sustentáveis", image: "https://images.unsplash.com/photo-1597484662317-c93138801d0c?auto=format&fit=crop&q=80&w=600", description: "Algodão cru. Substitua sacolas plásticas." },
-            { id: 6, name: "Garrafinha Personalizada", price: 35.00, category: "Sustentáveis", image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=600", description: "Material durável para o dia a dia." },
-            { id: 7, name: "Lápis Semente", price: 10.00, category: "Sustentáveis", image: "https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&q=80&w=600", description: "Use até o fim e plante para nascer uma árvore." },
-            { id: 8, name: "Chaveiro 3D", price: 15.00, category: "Colecionáveis", image: "https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?auto=format&fit=crop&q=80&w=600", description: "Impresso em PLA biodegradável." },
-            { id: 9, name: "Bottom (Broche)", price: 10.00, category: "Colecionáveis", image: "https://images.unsplash.com/photo-1633535268612-92268297b4a2?auto=format&fit=crop&q=80&w=600", description: "Para personalizar sua mochila." },
-            { id: 10, name: "Pack de Adesivos", price: 5.00, category: "Colecionáveis", image: "https://images.unsplash.com/photo-1572375992501-4b0892d50c69?auto=format&fit=crop&q=80&w=600", description: "Vinil resistente." },
-            { id: 11, name: "Mousepad Gamer", price: 30.00, category: "Papelaria", image: "https://images.unsplash.com/photo-1616422285623-13ff0162193c?auto=format&fit=crop&q=80&w=600", description: "Superfície otimizada para precisão." },
-            { id: 12, name: "Caneta Personalizada", price: 10.00, category: "Papelaria", image: "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&q=80&w=600", description: "Escrita suave com a marca da equipe." }
+            { id: 1, name: "Kit Robot's Fans", price: 65.00, category: "Kits", image: "6.jpg", description: "Kit completo com desconto: Camiseta, Bottom, Adesivo e Lápis.", tag: "Mais Vendido" },
+            { id: 2, name: "Camiseta Oficial 9484", price: 50.00, category: "Vestuário", image: "4.jpg", description: "Malha confortável com design da temporada.", tag: "Novo" },
+            { id: 3, name: "Boné District", price: 30.00, category: "Vestuário", image: "1.jpg", description: "Bordado de alta qualidade. Identidade visual forte." },
+            { id: 4, name: "Bandana Multiuso", price: 20.00, category: "Vestuário", image: "3.jpg", description: "Ideal para eventos e treinos." },
+            { id: 5, name: "Ecobag Robot's", price: 30.00, category: "Sustentáveis", image: "2.jpg", description: "Algodão cru. Substitua sacolas plásticas." },
+            { id: 6, name: "Garrafinha Personalizada", price: 35.00, category: "Sustentáveis", image: "7.jpg", description: "Material durável para o dia a dia." },
+            { id: 7, name: "Bandana Roxa", price: 20.00, category: "Vestuário", image: "9.jpg", description: "Ideal para eventos e treinos." },
+            { id: 8, name: "Chaveiro 3D", price: 15.00, category: "Colecionáveis", image: "11.jpg", description: "Impresso em PLA biodegradável." },
+            { id: 9, name: "Bottom (Broche)", price: 10.00, category: "Colecionáveis", image: "10.jpg", description: "Para personalizar sua mochila." },
+            { id: 10, name: "Chaveiro Scorpion", price: 15.00, category: "Colecionáveis", image: "13.jpg", description: "Impresso em PLA biodegradável." },
+            { id: 11, name: "Chaveiro 9484", price: 15.00, category: "Colecionáveis", image: "12.jpg", description: "Impresso em PLA biodegradável." },
+            { id: 12, name: "Garrafinha Scorpion", price: 35.00, category: "Sustentáveis", image: "8.jpg", description: "Material durável para o dia a dia." }
         ];
 
         document.addEventListener("DOMContentLoaded", () => {
