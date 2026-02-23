@@ -14,78 +14,141 @@
             { id: 12, name: "Garrafinha Scorpion", price: 35.00, category: "Sustentáveis", image: "8.jpg", description: "Material durável para o dia a dia." }
         ];
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const productGrid = document.getElementById('product-grid');
-            const cartCountEl = document.getElementById('cart-count');
-            const toast = document.getElementById('toast');
-            let cartCount = 0;
+        // Estado do carrinho de compras na memória
+        let cart = [];
 
-            function renderProducts(category) {
-                if(!productGrid) return;
-                productGrid.innerHTML = '';
-                
-                const filtered = category === 'Todos' ? products : products.filter(p => p.category === category);
+        // Funções para abrir/fechar o carrinho
+        window.openCart = () => {
+            document.getElementById('cart-sidebar').classList.add('open');
+            document.getElementById('cart-overlay').classList.add('open');
+        };
 
-                filtered.forEach(product => {
-                    const card = document.createElement('div');
-                    card.className = 'product-card';
-                    
-                    const tagHtml = product.tag ? `<span class="tag-overlay">${product.tag}</span>` : '';
-                    
-                    card.innerHTML = `
-                        <div class="img-wrapper">
-                            ${tagHtml}
-                            <img src="${product.image}" alt="${product.name}" class="product-img" onerror="this.src='https://placehold.co/400x500/18181b/ffb800?text=Sem+Imagem&font=oswald'">
-                            <button class="btn-quick-add" onclick="event.stopPropagation(); addToCart();">
-                                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                            </button>
-                        </div>
-                        <div style="flex: 1; display: flex; flex-direction: column;">
-                            <div class="product-cat">${product.category}</div>
-                            <h3 class="product-title">${product.name}</h3>
-                            <p class="product-desc">${product.description}</p>
-                            <div style="margin-top: auto; display: flex; align-items: center; gap: 0.5rem;">
-                                <span class="product-price">R$ ${product.price.toFixed(2)}</span>
+        window.closeCart = () => {
+            document.getElementById('cart-sidebar').classList.remove('open');
+            document.getElementById('cart-overlay').classList.remove('open');
+        };
+
+        // Função para atualizar o interface do carrinho
+        window.updateCartUI = () => {
+            const cartBody = document.getElementById('cart-body');
+            const cartBadge = document.getElementById('cart-badge');
+            const cartTotal = document.getElementById('cart-total');
+
+            // Atualiza o contador do botão
+            cartBadge.innerText = cart.length;
+
+            if (cart.length === 0) {
+                cartBody.innerHTML = `
+                    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:var(--text-muted); gap: 1rem;">
+                        <svg class="icon-svg" style="width:48px; height:48px; opacity:0.5;" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                        <p>O seu carrinho está vazio.</p>
+                    </div>`;
+                cartTotal.innerText = `R$ 0.00`;
+                return;
+            }
+
+            let total = 0;
+            cartBody.innerHTML = '';
+            
+            cart.forEach(item => {
+                total += item.price;
+                cartBody.innerHTML += `
+                    <div class="cart-item">
+                        <div class="flex items-center gap-4">
+                            <img src="${item.image}" alt="${item.productName}" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border-color);">
+                            <div>
+                                <h4>${item.productName}</h4>
+                                <div class="cart-item-price">R$ ${item.price.toFixed(2)}</div>
                             </div>
                         </div>
-                    `;
-                    productGrid.appendChild(card);
-                });
-            }
-
-            // Filtros
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    renderProducts(btn.dataset.category);
-                });
+                        <button onclick="removeFromCart('${item.cartId}')" class="btn-remove" title="Remover Produto">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        </button>
+                    </div>
+                `;
             });
 
-            // Carrinho
-            window.addToCart = function() {
-                cartCount++;
-                if(cartCountEl) cartCountEl.innerText = `(${cartCount})`;
-                if(toast) {
-                    toast.classList.add('show');
-                    setTimeout(() => toast.classList.remove('show'), 3000);
-                }
-            };
+            cartTotal.innerText = `R$ ${total.toFixed(2)}`;
+        };
 
-            // Mobile Menu
-            const menuBtn = document.getElementById('menu-btn');
-            const closeMenu = document.getElementById('close-menu');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileLinks = document.querySelectorAll('.mobile-link');
+        // Adicionar um produto ao carrinho
+        window.addToCart = (productData) => {
+            // Cria um ID único para cada item no carrinho
+            const uniqueCartId = Date.now().toString() + Math.random().toString(36).substring(2);
+            
+            cart.push({
+                cartId: uniqueCartId,
+                productName: productData.name,
+                price: Number(productData.price),
+                image: productData.image
+            });
+            
+            updateCartUI();
+            openCart(); // Abre o menu lateral quando se adiciona um item
+        };
 
-            function toggleMenu() {
-                if(mobileMenu) mobileMenu.classList.toggle('open');
-            }
+        // Remover um produto do carrinho
+        window.removeFromCart = (cartId) => {
+            cart = cart.filter(item => item.cartId !== cartId);
+            updateCartUI();
+        };
 
-            if(menuBtn) menuBtn.addEventListener('click', toggleMenu);
-            if(closeMenu) closeMenu.addEventListener('click', toggleMenu);
-            mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+        // Renderizar a grelha de produtos na página
+        const renderProducts = (category) => {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            
+            // Filtra pela categoria selecionada ou mostra todos
+            const filtered = category === 'Todos' ? products : products.filter(p => p.category === category);
 
-            // Init
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                
+                // Prepara os dados do produto para passar na função onClick
+                const productDataStr = JSON.stringify({ 
+                    name: product.name, 
+                    price: product.price, 
+                    image: product.image 
+                }).replace(/"/g, '&quot;');
+                
+                const fallbackAttr = product.fallbackImg ? `onerror="this.src='${product.fallbackImg}'"` : `onerror="this.src='https://placehold.co/400x400/18181b/ffb800?text=Foto'"`;
+
+                card.innerHTML = `
+                    <div class="img-wrapper">
+                        <img src="${product.image}" alt="${product.name}" class="product-img" ${fallbackAttr}>
+                    </div>
+                    <div class="flex flex-col" style="flex:1;">
+                        <div class="product-cat">${product.category}</div>
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-desc">${product.description}</p>
+                        <div style="margin-top: auto; padding-top: 1rem;">
+                            <div class="product-price">R$ ${Number(product.price).toFixed(2)}</div>
+                            <button onclick="window.addToCart(${productDataStr})" class="btn btn-primary w-full mt-4">
+                                Adicionar ao Carrinho
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        };
+
+        // Inicializar a página quando carregar
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mostra os produtos e o estado inicial do carrinho
             renderProducts('Todos');
+            updateCartUI();
+
+            // Lógica dos botões de filtro
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    // Remove a classe 'active' de todos e adiciona no clicado
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    // Renderiza os produtos com a nova categoria
+                    renderProducts(e.target.dataset.category);
+                });
+            });
         });
