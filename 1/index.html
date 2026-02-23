@@ -12,8 +12,8 @@
             --card-bg: #18181b;
             --text-color: #ffffff;
             --text-muted: #a1a1aa;
-            --primary: #ffb800;
-            --secondary: #30004a; /* Roxo escuro da imagem */
+            --primary: #ffb800; /* Amarelo */
+            --secondary: #1f0036; /* Roxo escuro */
             --border-color: #27272a;
             --font-main: system-ui, -apple-system, sans-serif;
         }
@@ -32,6 +32,7 @@
         .flex-col { flex-direction: column; }
         .items-center { align-items: center; }
         .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
         .gap-2 { gap: 0.5rem; }
         .gap-4 { gap: 1rem; }
         .gap-6 { gap: 1.5rem; }
@@ -39,6 +40,7 @@
         .w-full { width: 100%; }
         .mt-4 { margin-top: 1rem; }
         .hidden { display: none !important; }
+        .text-center { text-align: center; }
         
         .text-white { color: #ffffff; }
         .hover-primary:hover { color: var(--primary); }
@@ -55,7 +57,7 @@
 
         /* --- 3. COMPONENTES --- */
         .btn { padding: 0.75rem 1.5rem; border-radius: 9999px; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; }
-        .btn-primary { background-color: var(--primary); color: var(--secondary); }
+        .btn-primary { background-color: var(--primary); color: #000; }
         .btn-primary:hover { background-color: #fff; box-shadow: 0 0 15px rgba(255, 184, 0, 0.4); }
         .btn-icon { padding: 0.5rem; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .btn-icon:hover { color: var(--primary); }
@@ -66,16 +68,42 @@
         .nav-link { font-size: 1rem; font-weight: 600; text-transform: capitalize; letter-spacing: 0.02em; }
         
         /* --- 5. HERO --- */
-        .hero { background: linear-gradient(180deg, var(--secondary) 0%, var(--bg-color) 100%); padding: 5rem 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .hero h2 { font-size: 2.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 1rem; line-height: 1.1; }
+        .hero { background: var(--secondary); padding: 5rem 1rem 3rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .hero h2 { font-size: 2.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 1rem; line-height: 1.1; color: #fff; }
         .text-highlight { color: var(--primary); }
-        .hero p { max-width: 600px; margin: 0 auto; color: var(--text-muted); font-size: 1.1rem; }
+        .hero p { max-width: 700px; margin: 0 auto; color: var(--text-muted); font-size: 1rem; line-height: 1.6; }
 
-        /* --- 6. PRODUTOS --- */
-        .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 3rem; margin-top: 3rem; }
+        /* --- 6. SECÇÃO KIT (NOVO) --- */
+        .kit-section { padding: 4rem 1rem; background: linear-gradient(180deg, var(--secondary) 0%, var(--bg-color) 100%); }
+        .kit-card { background: linear-gradient(135deg, #2a004b 0%, #150026 100%); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; display: flex; flex-direction: column; overflow: hidden; max-width: 1000px; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        
+        @media (min-width: 768px) {
+            .kit-card { flex-direction: row; align-items: stretch; }
+        }
+
+        .kit-content { padding: 3rem; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .kit-tag { background-color: var(--primary); color: #000; font-size: 0.75rem; font-weight: 800; padding: 0.4rem 0.8rem; border-radius: 4px; align-self: flex-start; margin-bottom: 1.5rem; text-transform: uppercase; }
+        .kit-title { font-size: 2.25rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.1; color: #fff; }
+        .kit-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem; max-width: 400px; line-height: 1.5; }
+        
+        .kit-list { margin-bottom: 2.5rem; }
+        .kit-list li { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; color: #ccc; font-size: 0.9rem; }
+        .kit-list svg { width: 18px; height: 18px; color: var(--primary); flex-shrink: 0; }
+        
+        .kit-price-row { display: flex; align-items: center; gap: 2rem; margin-top: auto; flex-wrap: wrap; }
+        .kit-price-info { display: flex; flex-direction: column; }
+        .kit-old-price { text-decoration: line-through; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.2rem; }
+        .kit-new-price { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1; }
+        
+        .kit-image-wrapper { flex: 1; background-color: #111; display: flex; min-height: 300px; }
+        .kit-image-wrapper img { width: 100%; height: 100%; object-fit: cover; object-position: center; border-left: 1px solid rgba(255,255,255,0.05); }
+
+
+        /* --- 7. PRODUTOS --- */
+        .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 3rem; }
         .filter-btn { padding: 0.5rem 1.25rem; border-radius: 9999px; border: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.875rem; font-weight: 600; transition: 0.3s; background: transparent; }
         .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
-        .filter-btn.active { background-color: var(--primary); color: var(--secondary); border-color: var(--primary); }
+        .filter-btn.active { background-color: var(--primary); color: #000; border-color: var(--primary); }
 
         .product-card { display: flex; flex-direction: column; background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 0.75rem; padding: 1rem; transition: 0.3s; }
         .product-card:hover { border-color: rgba(255, 184, 0, 0.5); transform: translateY(-5px); }
@@ -88,7 +116,7 @@
         .product-desc { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.4em; }
         .product-price { font-family: monospace; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
 
-        /* --- 7. ABA DO CARRINHO (SIDEBAR) --- */
+        /* --- 8. ABA DO CARRINHO --- */
         .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 60; opacity: 0; pointer-events: none; transition: 0.3s; backdrop-filter: blur(2px); }
         .cart-overlay.open { opacity: 1; pointer-events: all; }
         
@@ -101,10 +129,29 @@
         
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .cart-item-info h4 { font-size: 0.95rem; font-weight: 600; color: white; margin-bottom: 0.25rem; }
-        .cart-item-info span { font-size: 0.85rem; color: var(--text-muted); }
         .cart-item-price { font-family: monospace; font-weight: bold; color: var(--primary); }
         .btn-remove { color: #ef4444; padding: 0.5rem; border-radius: 0.25rem; transition: 0.3s; }
         .btn-remove:hover { background-color: rgba(239, 68, 68, 0.1); }
+
+        /* --- 9. SUSTENTABILIDADE --- */
+        .sustainability-section { background-color: var(--secondary); padding: 5rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        .badge-verde { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid var(--primary); color: var(--primary); padding: 0.4rem 1rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.5rem; }
+        .sustainability-section h2 { font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 3rem; text-align: center; }
+        .sus-card { background-color: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 2.5rem 1.5rem; text-align: center; transition: 0.3s; }
+        .sus-card:hover { border-color: rgba(255, 184, 0, 0.3); background-color: rgba(0, 0, 0, 0.4); }
+        .sus-card h3 { color: var(--primary); font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; }
+        .sus-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+        /* --- 10. RODAPÉ --- */
+        .site-footer { background-color: #050505; padding: 4rem 1rem 2rem; border-top: 1px solid var(--border-color); }
+        .footer-logo-area h3 { font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem; }
+        .footer-logo-area p { font-size: 0.8rem; color: var(--text-muted); }
+        .footer-links { display: flex; gap: 1.5rem; font-size: 0.85rem; color: var(--text-muted); }
+        .footer-links a:hover { color: var(--primary); }
+        .footer-payments { display: flex; gap: 0.5rem; }
+        .pay-badge { background-color: #1f1f22; color: #fff; font-size: 0.65rem; font-weight: 700; padding: 0.4rem 0.6rem; border-radius: 4px; border: 1px solid #333; }
+        .footer-copyright { text-align: center; color: #555; font-size: 0.75rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); }
+
     </style>
 </head>
 <body>
@@ -122,9 +169,7 @@
             </button>
         </div>
         
-        <div id="cart-body" class="cart-body">
-            <!-- Itens do carrinho aparecem aqui -->
-        </div>
+        <div id="cart-body" class="cart-body"></div>
         
         <div class="cart-footer">
             <div class="flex justify-between items-center" style="margin-bottom: 1rem;">
@@ -135,52 +180,87 @@
         </div>
     </div>
 
-    <!-- Cabeçalho (Header) -->
+    <!-- Cabeçalho -->
     <header>
         <div class="container flex justify-between items-center w-full">
-            
-            <!-- Logotipo -->
             <div class="flex items-center gap-3">
                 <img src="./logos vetorizadas.png" alt="Logo District 9484" style="height: 45px; object-fit: contain;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                
                 <div class="flex flex-col" style="display: none;">
                     <h1 style="font-size: 1.125rem; font-weight: 800; line-height: 1; text-transform: uppercase;">Robot's Fans</h1>
                     <p style="font-size: 0.65rem; color: var(--primary); text-transform: uppercase; letter-spacing: 0.1em;">Team #9484</p>
                 </div>
             </div>
 
-            <!-- Links de Navegação -->
             <nav class="hidden md-flex gap-8 items-center text-white nav-link">
                 <a href="#" class="hover-primary">Início</a>
                 <a href="#produtos" class="hover-primary">Produtos</a>
-                <a href="#" class="hover-primary">Missão</a>
+                <a href="#missao" class="hover-primary">Missão</a>
             </nav>
 
-            <!-- Ações: Pesquisa, Carrinho e Menu -->
             <div class="flex items-center gap-6">
-                
                 <button class="btn-icon hidden md-flex" title="Pesquisar">
                     <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </button>
-
                 <button onclick="openCart()" class="btn btn-primary">
-                    <svg class="icon-svg" style="stroke: var(--secondary); width: 18px; height: 18px;" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    <svg class="icon-svg" style="stroke: #000; width: 18px; height: 18px;" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                     <span>CARRINHO (<span id="cart-badge">0</span>)</span>
                 </button>
-
                 <button class="btn-icon md-hidden">
                     <svg class="icon-svg" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 </button>
-                
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section (Texto Atualizado) -->
     <div class="hero">
-        <h2>Apoie a Equipa <br><span class="text-highlight">Robot's District</span></h2>
-        <p>Todo o valor das vendas é revertido para a compra de peças de robótica e inscrições em torneios. Ajude-nos a construir o futuro!</p>
+        <h2>VISTA A CAMISA DA <br><span class="text-highlight">INOVAÇÃO</span></h2>
+        <p>Cada produto adquirido apoia diretamente a <strong>Robot's District #9484</strong>. Todo o lucro é revertido para materiais e competições.</p>
     </div>
+
+    <!-- NOVA SECÇÃO: Kit Fan Essencial -->
+    <section class="kit-section">
+        <div class="container">
+            <div class="kit-card">
+                <div class="kit-content">
+                    <span class="kit-tag">OFERTA DO DISTRITO</span>
+                    <h2 class="kit-title">Kit Fan Essencial</h2>
+                    <p class="kit-desc">A combinação perfeita para quem torce de verdade. Leve a experiência completa com desconto especial.</p>
+                    
+                    <ul class="kit-list">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Camiseta Oficial
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Bottom Exclusivo
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Adesivo & Lápis
+                        </li>
+                    </ul>
+
+                    <div class="kit-price-row">
+                        <div class="kit-price-info">
+                            <span class="kit-old-price">De R$ 75,00</span>
+                            <span class="kit-new-price">R$ 65,00</span>
+                        </div>
+                        <!-- Botão que adiciona o kit ao carrinho usando a função do JavaScript -->
+                        <button onclick="window.addToCart({name: 'Kit Fan Essencial', price: 65.00, image: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&q=80&w=600'})" class="btn btn-primary" style="padding: 1rem 2rem;">
+                            COMPRAR KIT
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="kit-image-wrapper">
+                    <!-- Imagem temporária ilustrativa para o Kit -->
+                    <img src="6.jpg" alt="Kit Fan Essencial">
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Área de Produtos -->
     <section id="produtos" class="container" style="padding-bottom: 5rem;">
@@ -189,6 +269,7 @@
             <button class="filter-btn" data-category="Vestuário">Vestuário</button>
             <button class="filter-btn" data-category="Sustentáveis">Sustentáveis</button>
             <button class="filter-btn" data-category="Colecionáveis">Colecionáveis</button>
+            <button class="filter-btn" data-category="Papelaria">Papelaria</button>
         </div>
 
         <div class="grid sm-grid-2 md-grid-3 lg-grid-4" id="product-grid">
@@ -196,27 +277,77 @@
         </div>
     </section>
 
+    <!-- Sustentabilidade -->
+    <section id="missao" class="sustainability-section">
+        <div class="container flex flex-col items-center">
+            <div class="badge-verde">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+                    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                </svg>
+                Compromisso Verde
+            </div>
+            <h2>Sustentabilidade em cada detalhe</h2>
+            <div class="grid md-grid-3 gap-6 w-full">
+                <div class="sus-card">
+                    <h3>Produção Consciente</h3>
+                    <p>Priorizamos algodão orgânico, aço inoxidável e PLA biodegradável.</p>
+                </div>
+                <div class="sus-card">
+                    <h3>Zero Plástico</h3>
+                    <p>Caixas recicladas, pouch bags de papel e fita de papel kraft.</p>
+                </div>
+                <div class="sus-card">
+                    <h3>Papel Semente</h3>
+                    <p>Cartão de agradecimento plantável. Leia, molhe e plante!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Rodapé -->
-    <footer style="background-color: var(--bg-color); padding: 3rem 0; border-top: 1px solid var(--border-color); text-align: center; color: var(--text-muted); font-size: 0.8rem;">
-        © 2026 Robot's District #9484.
+    <footer class="site-footer">
+        <div class="container flex flex-col md-flex flex-row justify-between items-center gap-6" style="flex-direction: row; flex-wrap: wrap;">
+            <div class="footer-logo-area text-center" style="text-align: left;">
+                <h3>Robot's Fans</h3>
+                <p>Loja oficial da equipe FRC 9484</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Política de Troca</a>
+                <a href="#">Envio</a>
+                <a href="#">Contato</a>
+            </div>
+            <div class="footer-payments">
+                <span class="pay-badge">PIX</span>
+                <span class="pay-badge">CARD</span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="footer-copyright">
+                © 2026 Robot's District. Todos os direitos reservados.
+            </div>
+        </div>
     </footer>
 
-    <!-- Lógica JavaScript Local (Sem Firebase) -->
+    <!-- Lógica JavaScript -->
     <script>
-        // Array com os dados dos produtos
-        const products = [
-            { id: 1, name: "Camisola Oficial 9484", price: 65.00, category: "Vestuário", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=600", description: "O nosso manto oficial para as competições." },
-            { id: 2, name: "Boné District #9484", price: 35.00, category: "Vestuário", image: "./Robots Fans- 9484.jpg", fallbackImg: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&q=80&w=600", description: "Boné exclusivo com a marca da equipa." },
-            { id: 3, name: "Garrafa Térmica", price: 45.00, category: "Sustentáveis", image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=600", description: "Mantém a água fresca durante a construção do robô." },
-            { id: 4, name: "Ecobag Resistente", price: 25.00, category: "Sustentáveis", image: "https://images.unsplash.com/photo-1597484662317-c93138801d0c?auto=format&fit=crop&q=80&w=600", description: "Perfeita para carregar ferramentas e cabos." },
-            { id: 5, name: "Porta-chaves Engrenagem", price: 15.00, category: "Colecionáveis", image: "https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?auto=format&fit=crop&q=80&w=600", description: "Impresso em 3D pela nossa equipa de mecânica." },
-            { id: 6, name: "Pack Autocolantes", price: 10.00, category: "Colecionáveis", image: "https://images.unsplash.com/photo-1572375992501-4b0892d50c69?auto=format&fit=crop&q=80&w=600", description: "Decore o seu computador portátil como um verdadeiro fã." }
+       const products = [
+            { id: 1, name: "Kit Robot's Fans", price: 65.00, category: "Kits", image: "6.jpg", description: "Kit completo com desconto: Camiseta, Bottom, Adesivo e Lápis.", tag: "Mais Vendido" },
+            { id: 2, name: "Camiseta Oficial 9484", price: 50.00, category: "Vestuário", image: "4.jpg", description: "Malha confortável com design da temporada.", tag: "Novo" },
+            { id: 3, name: "Boné District", price: 30.00, category: "Vestuário", image: "1.jpg", description: "Bordado de alta qualidade. Identidade visual forte." },
+            { id: 4, name: "Bandana Multiuso", price: 20.00, category: "Vestuário", image: "3.jpg", description: "Ideal para eventos e treinos." },
+            { id: 5, name: "Ecobag Robot's", price: 30.00, category: "Sustentáveis", image: "2.jpg", description: "Algodão cru. Substitua sacolas plásticas." },
+            { id: 6, name: "Garrafinha Personalizada", price: 35.00, category: "Sustentáveis", image: "7.jpg", description: "Material durável para o dia a dia." },
+            { id: 7, name: "Bandana Roxa", price: 20.00, category: "Vestuário", image: "9.jpg", description: "Ideal para eventos e treinos." },
+            { id: 8, name: "Chaveiro 3D", price: 15.00, category: "Colecionáveis", image: "11.jpg", description: "Impresso em PLA biodegradável." },
+            { id: 9, name: "Bottom (Broche)", price: 10.00, category: "Colecionáveis", image: "10.jpg", description: "Para personalizar sua mochila." },
+            { id: 10, name: "Chaveiro Scorpion", price: 15.00, category: "Colecionáveis", image: "13.jpg", description: "Impresso em PLA biodegradável." },
+            { id: 11, name: "Chaveiro 9484", price: 15.00, category: "Colecionáveis", image: "12.jpg", description: "Impresso em PLA biodegradável." },
+            { id: 12, name: "Garrafinha Scorpion", price: 35.00, category: "Sustentáveis", image: "8.jpg", description: "Material durável para o dia a dia." }
         ];
-
-        // Estado do carrinho de compras na memória
+        
         let cart = [];
 
-        // Funções para abrir/fechar o carrinho
         window.openCart = () => {
             document.getElementById('cart-sidebar').classList.add('open');
             document.getElementById('cart-overlay').classList.add('open');
@@ -227,13 +358,11 @@
             document.getElementById('cart-overlay').classList.remove('open');
         };
 
-        // Função para atualizar o interface do carrinho
         window.updateCartUI = () => {
             const cartBody = document.getElementById('cart-body');
             const cartBadge = document.getElementById('cart-badge');
             const cartTotal = document.getElementById('cart-total');
 
-            // Atualiza o contador do botão
             cartBadge.innerText = cart.length;
 
             if (cart.length === 0) {
@@ -270,48 +399,35 @@
             cartTotal.innerText = `R$ ${total.toFixed(2)}`;
         };
 
-        // Adicionar um produto ao carrinho
         window.addToCart = (productData) => {
-            // Cria um ID único para cada item no carrinho
             const uniqueCartId = Date.now().toString() + Math.random().toString(36).substring(2);
-            
             cart.push({
                 cartId: uniqueCartId,
                 productName: productData.name,
                 price: Number(productData.price),
                 image: productData.image
             });
-            
             updateCartUI();
-            openCart(); // Abre o menu lateral quando se adiciona um item
+            openCart();
         };
 
-        // Remover um produto do carrinho
         window.removeFromCart = (cartId) => {
             cart = cart.filter(item => item.cartId !== cartId);
             updateCartUI();
         };
 
-        // Renderizar a grelha de produtos na página
         const renderProducts = (category) => {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = '';
             
-            // Filtra pela categoria selecionada ou mostra todos
             const filtered = category === 'Todos' ? products : products.filter(p => p.category === category);
 
             filtered.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 
-                // Prepara os dados do produto para passar na função onClick
-                const productDataStr = JSON.stringify({ 
-                    name: product.name, 
-                    price: product.price, 
-                    image: product.image 
-                }).replace(/"/g, '&quot;');
-                
-                const fallbackAttr = product.fallbackImg ? `onerror="this.src='${product.fallbackImg}'"` : `onerror="this.src='https://placehold.co/400x400/18181b/ffb800?text=Foto'"`;
+                const productDataStr = JSON.stringify({ name: product.name, price: product.price, image: product.image }).replace(/"/g, '&quot;');
+                const fallbackAttr = `onerror="this.src='https://placehold.co/400x400/18181b/ffb800?text=Foto'"`;
 
                 card.innerHTML = `
                     <div class="img-wrapper">
@@ -333,20 +449,14 @@
             });
         };
 
-        // Inicializar a página quando carregar
         document.addEventListener('DOMContentLoaded', () => {
-            // Mostra os produtos e o estado inicial do carrinho
             renderProducts('Todos');
             updateCartUI();
 
-            // Lógica dos botões de filtro
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    // Remove a classe 'active' de todos e adiciona no clicado
                     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                     e.target.classList.add('active');
-                    
-                    // Renderiza os produtos com a nova categoria
                     renderProducts(e.target.dataset.category);
                 });
             });
